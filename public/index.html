@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+    <title>DMARC Record Configurator</title>
+
+    <!-- Icons / Web app information -->
+    <meta name="theme-color" content="#9b49a6">
+    <link rel="manifest" href="/manifest.webmanifest">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/app.css">
+
+    <!-- JavaScript -->
+    <script>
+    'use strict';
+
+    document.addEventListener('DOMContentLoaded', function() {
+        let form = document.querySelector('form');
+
+        form.querySelectorAll('input, select').forEach(function(element) {
+            element.addEventListener('input', function() {
+                form.dispatchEvent(new Event('submit', {
+                    cancelable: true
+                }));
+            });
+        });
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const url = new URL(location);
+            const formData = new FormData(form);
+
+            formData.forEach(function(value, name) {
+                url.searchParams.set(name, value);
+            });
+
+            history.pushState({}, '', url);
+
+            form.querySelector('[name="dns_record"]').value = buildDnsRecordString();
+        });
+
+        form.dispatchEvent(new Event('submit', {
+            cancelable: true
+        }));
+    });
+
+    var buildDnsRecordString = function() {
+        const url = new URL(location);
+
+        let dnsRecordParts = [];
+
+        url.searchParams.forEach(function(value, key) {
+            if (value.length > 0) {
+                dnsRecordParts.push(`${key}=${decodeURIComponent(value)}`);
+            }
+        });
+
+        return dnsRecordParts.join(';');
+    };
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1 class="heading heading--level-1 heading--centered">DMARC Record Configurator</h1>
+    </header>
+
+    <main>
+        <form method="GET">
+            <div class="grid__row">
+                <div class="grid__column">
+                    <hr class="horizontal-rule horizontal-rule--narrow">
+                </div>
+            </div>
+
+            <div class="grid__row">
+                <div class="grid__column">
+                    <input class="form__text form__text--centered form__text--bold form__text--collapsed"
+                        name="dns_record"
+                        type="text"
+                        disabled>
+                </div>
+            </div>
+
+            <div class="grid__row">
+                <div class="grid__column">
+                    <hr class="horizontal-rule horizontal-rule--narrow">
+                </div>
+            </div>
+
+            <div class="grid__row">
+                <div class="grid__column">
+                    <p class="text">
+                        For more information see <a class="link" target="_blank" rel="external noopener" href="https://tools.ietf.org/html/rfc7489#section-6.3">https://tools.ietf.org/html/rfc7489#section-6.3</a>
+                    </p>
+                </div>
+            </div>
+
+            <!-- v -->
+            <div class="grid__row">
+                <div class="grid__column">
+                    <label class="form__label"
+                        title="v"
+                    >
+                        Version
+
+                        <details class="form__details">
+                            <summary class="form__details-opener">ℹ</summary>
+
+                            <div class="form__details-content">
+                                Identifies the record retrieved as a DMARC record. It MUST have the value of "DMARC1". The value of this tag MUST match precisely; if it does not or it is absent, the entire retrieved record MUST be ignored. It MUST be the first tag in the list.
+                            </div>
+                        </details>
+
+                        <input class="form__text"
+                            name="v"
+                            tabindex="1"
+                            required
+                            readonly
+                            value="DMARC1"
+                        >
+                    </label>
+                </div>
+            </div>
+
+            <div class="grid__row">
+                <!-- p -->
+                <div class="grid__column grid__column--6">
+                    <label class="form__label"
+                        title="p"
+                    >
+                        Policy
+
+                        <details class="form__details">
+                            <summary class="form__details-opener">ℹ</summary>
+
+                            <div class="form__details-content">
+                                Indicates the policy to be enacted by the Receiver at the request of the Domain Owner.  Policy applies to the domain queried and to subdomains, unless subdomain policy is explicitly described using the "sp" tag.  This tag is mandatory for policy records only, but not for third-party reporting records. Possible values are as follows:<br>
+                                <br>
+                                <b>none:</b> The Domain Owner requests no specific action be taken regarding delivery of messages.<br>
+                                <br>
+                                <b>quarantine:</b> The Domain Owner wishes to have email that fails the DMARC mechanism check be treated by Mail Receivers as suspicious. Depending on the capabilities of the Mail Receiver, this can mean "place into spam folder", "scrutinize with additional intensity", and/or "flag as suspicious".<br>
+                                <br>
+                                <b>reject:</b> The Domain Owner wishes for Mail Receivers to reject email that fails the DMARC mechanism check. Rejection SHOULD occur during the SMTP transaction.<br>
+                            </div>
+                        </details>
+
+                        <select class="form__select"
+                            name="p"
+                            tabindex="2"
+                            required
+                        >
+                            <option value="none">none</option>
+                            <option value="quarantine">quarantine</option>
+                            <option value="reject">reject</option>
+                        </select>
+                    </label>
+                </div>
+
+                <!-- sp -->
+                <div class="grid__column grid__column--6">
+                    <label class="form__label"
+                        title="sp"
+                    >
+                        Policy for subdomains
+
+                        <details class="form__details">
+                            <summary class="form__details-opener">ℹ</summary>
+
+                            <div class="form__details-content">
+                                Indicates the policy to be enacted by the Receiver at the request of the Domain Owner. It applies only to subdomains of the domain queried and not to the domain itself. Its syntax is identical to that of the "p" tag.
+                            </div>
+                        </details>
+
+                        <select class="form__select"
+                            name="sp"
+                            tabindex="3"
+                        >
+                            <option></option>
+                            <option value="none">none</option>
+                            <option value="quarantine">quarantine</option>
+                            <option value="reject">reject</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+
+            <!-- pct -->
+            <div class="grid__row">
+                <div class="grid__column">
+                    <label class="form__label"
+                        title="pct"
+                    >
+                        Percentage of messages to which the DMARC policy is to be applied
+
+                        <details class="form__details">
+                            <summary class="form__details-opener">ℹ</summary>
+
+                            <div class="form__details-content">
+                                Percentage of messages from the Domain Owner's mail stream to which the DMARC policy is to be applied.<br>
+                                <br>
+                                However, this MUST NOT be applied to the DMARC-generated reports, all of which must be sent and received unhindered. The purpose of the "pct" tag is to allow Domain Owners to enact a slow rollout enforcement of the DMARC mechanism. The prospect of "all or nothing" is recognized as preventing many organizations from experimenting with strong authentication-based mechanisms.
+                            </div>
+                        </details>
+
+                        <input class="form__range"
+                            name="pct"
+                            tabindex="4"
+                            type="range"
+                            min="0"
+                            max="100"
+                            value="100">
+                    </label>
+                </div>
+            </div>
+
+            <div class="grid__row">
+                <!-- ruf -->
+                <div class="grid__column grid__column--6">
+                    <label class="form__label"
+                        title="ruf"
+                    >
+                        Reporting URI for forensic reports
+
+                        <details class="form__details">
+                            <summary class="form__details-opener">ℹ</summary>
+
+                            <div class="form__details-content">
+                                Addresses to which message-specific failure information is to be reported.<br>
+                                <br>
+                                Comma-separated plain-text list of DMARC URIs. If present, the Domain Owner is requesting Mail Receivers to send detailed failure reports about messages that fail the DMARC evaluation in specific ways (see the "fo" tag). The format of the message to be generated MUST follow the format specified for the "rf" tag. A Mail Receiver MUST implement support for a "mailto:" URI, i.e., the ability to send a DMARC report via electronic mail. If not provided, Mail Receivers MUST NOT generate failure reports.
+                            </div>
+                        </details>
+
+                        <input class="form__text"
+                            name="ruf"
+                            tabindex="5"
+                            type="text">
+                    </label>
+                </div>
+
+                <!-- fo -->
+                <div class="grid__column grid__column--6">
+                    <label class="form__label"
+                        title="fo"
+                    >
+                        Failure reporting options
+
+                        <details class="form__details">
+                            <summary class="form__details-opener">ℹ</summary>
+
+                            <div class="form__details-content">
+                                Provides requested options for generation of failure reports. Report generators MAY choose to adhere to the requested options. This tag's content MUST be ignored if a "ruf" tag (below) is not also specified. The value of this tag is a colon-separated list of characters that indicate failure reporting options.
+                            </div>
+                        </details>
+
+                        <select class="form__select"
+                            name="fo"
+                            tabindex="6"
+                        >
+                            <option></option>
+                            <option value="0">
+                                Generate a DMARC failure report if all underlying authentication mechanisms fail to produce an aligned "pass" result.
+                            </option>
+                            <option value="1">
+                                Generate a DMARC failure report if any underlying authentication mechanism produced something other than an aligned "pass" result.
+                            </option>
+                            <option value="d">
+                                Generate a DKIM failure report if the message had a signature that failed evaluation, regardless of its alignment.
+                            </option>
+                            <option value="s">
+                                Generate an SPF failure report if the message failed SPF evaluation, regardless of its alignment.
+                            </option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+
+            <div class="grid__row">
+                <!-- rf -->
+                <div class="grid__column">
+                    <label class="form__label"
+                        title="tf"
+                    >
+                        Format for message-specific failure reports
+
+                        <details class="form__details">
+                            <summary class="form__details-opener">ℹ</summary>
+
+                            <div class="form__details-content">
+                                Colon-separated plain-text list of values. The value of this tag is a list of one or more report formats as requested by the Domain Owner to be used when a message fails both [SPF] and [DKIM] tests to report details of the individual failure. The values MUST be present in the registry of reporting formats defined in Section 11; a Mail Receiver observing a different value SHOULD ignore it or MAY ignore the entire DMARC record. For this version, only "afrf" (the auth-failure report type defined in [AFRF]) is presently supported.
+                            </div>
+                        </details>
+
+                        <input class="form__text"
+                            name="rf"
+                            tabindex="7"
+                            type="text"
+                            value="afrf"
+                            disabled>
+                    </label>
+                </div>
+            </div>
+
+            <div class="grid__row">
+                <!-- rua -->
+                <div class="grid__column grid__column--6">
+                    <label class="form__label"
+                        title="rua"
+                    >
+                        Reporting URI of aggregate feedback
+
+                        <details class="form__details">
+                            <summary class="form__details-opener">ℹ</summary>
+
+                            <div class="form__details-content">
+                                Addresses to which aggregate feedback is to be sent.<br>
+                                <br>
+                                Comma-separated plain-text list of DMARC URIs. A comma or exclamation point that is part of such a DMARC URI MUST be encoded per Section 2.1 of [URI] so as to distinguish it from the list delimiter or an OPTIONAL size limit. Any valid URI can be specified. A Mail Receiver MUST implement support for a "mailto:" URI, i.e., the ability to send a DMARC report via electronic mail. If not provided, Mail Receivers MUST NOT generate aggregate feedback reports.  URIs not supported by Mail Receivers MUST be ignored.
+                            </div>
+                        </details>
+
+                        <input class="form__text"
+                            name="rua"
+                            tabindex="8"
+                            type="text">
+                    </label>
+                </div>
+
+                <!-- ri -->
+                <div class="grid__column grid__column--6">
+                    <label class="form__label"
+                        title="ri"
+                    >
+                        Interval between aggregate reports (in seconds)
+
+                        <details class="form__details">
+                            <summary class="form__details-opener">ℹ</summary>
+
+                            <div class="form__details-content">
+                                Indicates a request to Receivers to generate aggregate reports separated by no more than the requested number of seconds. DMARC implementations MUST be able to provide daily reports and SHOULD be able to provide hourly reports when requested. However, anything other than a daily report is understood to be accommodated on a best-effort basis.
+                            </div>
+                        </details>
+
+                        <input class="form__text"
+                            name="ri"
+                            min="0"
+                            tabindex="9"
+                            type="number"
+                            placeholder="86400">
+                    </label>
+                </div>
+            </div>
+
+            <div class="grid__row">
+                <!-- adkim -->
+                <div class="grid__column grid__column--6">
+                    <label class="form__label"
+                        title="adkim"
+                    >
+                        Alignment mode for DKIM
+
+                        <details class="form__details">
+                            <summary class="form__details-opener">ℹ</summary>
+
+                            <div class="form__details-content">
+                                Indicates whether strict or relaxed DKIM Identifier Alignment mode is required by the Domain Owner.
+                            </div>
+                        </details>
+
+                        <select class="form__select"
+                            name="adkim"
+                            tabindex="10"
+                        >
+                            <option></option>
+                            <option value="r">relaxed</option>
+                            <option value="s">strict</option>
+                        </select>
+                    </label>
+                </div>
+
+                <!-- aspf -->
+                <div class="grid__column grid__column--6">
+                    <label class="form__label"
+                        title="aspf"
+                    >
+                        Alignment mode for SPF
+
+                        <details class="form__details">
+                            <summary class="form__details-opener">ℹ</summary>
+
+                            <div class="form__details-content">
+                                Indicates whether strict or relaxed SPF Identifier Alignment mode is required by the Domain Owner.
+                            </div>
+                        </details>
+
+                        <select class="form__select"
+                            name="aspf"
+                            tabindex="11"
+                        >
+                            <option></option>
+                            <option value="r">relaxed</option>
+                            <option value="s">strict</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+        </form>
+    </main>
+
+    <footer>
+        <div class="grid__row">
+            <div class="grid__column grid__column--centered">
+                <p class="text text--small">
+                    &copy; 2020 @foodev
+                </p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

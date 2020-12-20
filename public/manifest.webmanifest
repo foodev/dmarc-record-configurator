@@ -1,0 +1,15 @@
+{
+    "lang": "en",
+    "dir": "ltr",
+
+    "name": "DMARC Record Configurator",
+    "description": "Configure DMARC DNS record.",
+
+    "start_url": "/",
+
+    "orientation": "portrait",
+    "display": "standalone",
+
+    "theme_color": "#9b49a6",
+    "background_color": "#fff"
+}
