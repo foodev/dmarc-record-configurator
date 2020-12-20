@@ -1,0 +1,13 @@
+stages:
+    - build
+
+build-image:
+    stage: build
+    before_script:
+        - buildah login --username "$CI_REGISTRY_USER" --password "$CI_JOB_TOKEN" $CI_REGISTRY
+    script:
+        - buildah bud --build-arg BASE_IMAGE=arm32v7/debian --tag "$CI_REGISTRY_IMAGE" .
+        - buildah push "$CI_REGISTRY_IMAGE"
+    after_script:
+        - buildah rmi --all
+        - buildah logout $CI_REGISTRY
