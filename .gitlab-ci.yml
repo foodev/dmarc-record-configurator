@@ -6,7 +6,7 @@ build-image:
     before_script:
         - buildah login --username "$CI_REGISTRY_USER" --password "$CI_JOB_TOKEN" $CI_REGISTRY
     script:
-        - buildah bud --build-arg BASE_IMAGE=arm32v7/debian --tag "$CI_REGISTRY_IMAGE" .
+        - buildah bud --build-arg BASE_IMAGE=arm32v7/debian --file container/Dockerfile --tag "$CI_REGISTRY_IMAGE" .
         - buildah push "$CI_REGISTRY_IMAGE"
     after_script:
         - buildah rmi --all
