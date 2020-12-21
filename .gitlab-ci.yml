@@ -1,5 +1,6 @@
 stages:
     - build
+    - deploy
 
 build-image:
     stage: build
@@ -11,3 +12,13 @@ build-image:
     after_script:
         - buildah rmi --all
         - buildah logout $CI_REGISTRY
+
+deploy:
+    stage: deploy
+    script:
+        - chmod og= $ID_RSA
+        - ssh -i $ID_RSA -o StrictHostKeyChecking=no $USERNAME_PRODUCTION@$HOSTNAME_PRODUCTION "podman login --username $CI_REGISTRY_USER --password $CI_JOB_TOKEN $CI_REGISTRY"
+        - ssh -i $ID_RSA -o StrictHostKeyChecking=no $USERNAME_PRODUCTION@$HOSTNAME_PRODUCTION "podman pull $CI_REGISTRY_IMAGE"
+        - ssh -i $ID_RSA -o StrictHostKeyChecking=no $USERNAME_PRODUCTION@$HOSTNAME_PRODUCTION "nohup systemctl --user restart dmarc-record-configurator"
+    after_script:
+        - ssh -i $ID_RSA -o StrictHostKeyChecking=no $USERNAME_PRODUCTION@$HOSTNAME_PRODUCTION "podman logout $CI_REGISTRY"
