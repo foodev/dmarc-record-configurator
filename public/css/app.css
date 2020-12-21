@@ -151,6 +151,35 @@ small,
     content: '';
 }
 
+/* Buttons */
+.button {
+    cursor: pointer;
+    appearance: none;
+    display: block;
+    box-sizing: border-box;
+    margin-top: 10px;
+    padding: 10px 15px;
+    text-align: center;
+    font: 700 14px/25px 'Open Sans', sans-serif;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+.button--collapsed {
+    margin: 0
+}
+.button:hover {
+    color: #693271;
+    border-color: #693271;
+}
+.button:focus,
+[hidden]:checked + .button {
+    color: #fff;
+    border-color: #693271;
+    background-color: #ba79c3;
+}
+
 /* Grid */
 .grid__row {
     display: flex;

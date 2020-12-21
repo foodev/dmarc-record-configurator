@@ -170,15 +170,50 @@
                             </div>
                         </details>
 
-                        <select class="form__select"
-                            name="p"
-                            tabindex="2"
-                            required
-                        >
-                            <option value="none">none</option>
-                            <option value="quarantine">quarantine</option>
-                            <option value="reject">reject</option>
-                        </select>
+                        <div class="grid__row">
+                            <div class="grid__column grid__column--4">
+                                <input id="p-none"
+                                    hidden
+                                    type="radio"
+                                    name="p"
+                                    value="none"
+                                    checked>
+                                <label class="button button--collapsed"
+                                    for="p-none"
+                                    tabindex="2"
+                                >
+                                    none
+                                </label>
+                            </div>
+
+                            <div class="grid__column grid__column--4">
+                                <input id="p-quarantine"
+                                    hidden
+                                    type="radio"
+                                    name="p"
+                                    value="quarantine">
+                                <label class="button button--collapsed"
+                                    for="p-quarantine"
+                                    tabindex="3"
+                                >
+                                    quarantine
+                                </label>
+                            </div>
+
+                            <div class="grid__column grid__column--4">
+                                <input id="p-reject"
+                                    hidden
+                                    type="radio"
+                                    name="p"
+                                    value="reject">
+                                <label class="button button--collapsed"
+                                    for="p-reject"
+                                    tabindex="4"
+                                >
+                                    reject
+                                </label>
+                            </div>
+                        </div>
                     </label>
                 </div>
 
@@ -197,15 +232,49 @@
                             </div>
                         </details>
 
-                        <select class="form__select"
-                            name="sp"
-                            tabindex="3"
-                        >
-                            <option></option>
-                            <option value="none">none</option>
-                            <option value="quarantine">quarantine</option>
-                            <option value="reject">reject</option>
-                        </select>
+                        <div class="grid__row">
+                            <div class="grid__column grid__column--4">
+                                <input id="sp-none"
+                                    hidden
+                                    type="radio"
+                                    name="sp"
+                                    value="none">
+                                <label class="button button--collapsed"
+                                    for="sp-none"
+                                    tabindex="5"
+                                >
+                                    none
+                                </label>
+                            </div>
+
+                            <div class="grid__column grid__column--4">
+                                <input id="sp-quarantine"
+                                    hidden
+                                    type="radio"
+                                    name="sp"
+                                    value="quarantine">
+                                <label class="button button--collapsed"
+                                    for="sp-quarantine"
+                                    tabindex="6"
+                                >
+                                    quarantine
+                                </label>
+                            </div>
+
+                            <div class="grid__column grid__column--4">
+                                <input id="sp-reject"
+                                    hidden
+                                    type="radio"
+                                    name="sp"
+                                    value="reject">
+                                <label class="button button--collapsed"
+                                    for="sp-reject"
+                                    tabindex="7"
+                                >
+                                    reject
+                                </label>
+                            </div>
+                        </div>
                     </label>
                 </div>
             </div>
@@ -393,14 +462,35 @@
                             </div>
                         </details>
 
-                        <select class="form__select"
-                            name="adkim"
-                            tabindex="10"
-                        >
-                            <option></option>
-                            <option value="r">relaxed</option>
-                            <option value="s">strict</option>
-                        </select>
+                        <div class="grid__row">
+                            <div class="grid__column grid__column--6">
+                                <input id="adkim-relaxed"
+                                    hidden
+                                    type="radio"
+                                    name="adkim"
+                                    value="r">
+                                <label class="button button--collapsed"
+                                    for="adkim-relaxed"
+                                    tabindex="14"
+                                >
+                                    relaxed
+                                </label>
+                            </div>
+
+                            <div class="grid__column grid__column--6">
+                                <input id="adkim-strict"
+                                    hidden
+                                    type="radio"
+                                    name="adkim"
+                                    value="s">
+                                <label class="button button--collapsed"
+                                    for="adkim-strict"
+                                    tabindex="15"
+                                >
+                                    strict
+                                </label>
+                            </div>
+                        </div>
                     </label>
                 </div>
 
@@ -419,14 +509,35 @@
                             </div>
                         </details>
 
-                        <select class="form__select"
-                            name="aspf"
-                            tabindex="11"
-                        >
-                            <option></option>
-                            <option value="r">relaxed</option>
-                            <option value="s">strict</option>
-                        </select>
+                        <div class="grid__row">
+                            <div class="grid__column grid__column--6">
+                                <input id="aspf-relaxed"
+                                    hidden
+                                    type="radio"
+                                    name="aspf"
+                                    value="r">
+                                <label class="button button--collapsed"
+                                    for="aspf-relaxed"
+                                    tabindex="16"
+                                >
+                                    relaxed
+                                </label>
+                            </div>
+
+                            <div class="grid__column grid__column--6">
+                                <input id="aspf-strict"
+                                    hidden
+                                    type="radio"
+                                    name="aspf"
+                                    value="s">
+                                <label class="button button--collapsed"
+                                    for="aspf-strict"
+                                    tabindex="17"
+                                >
+                                    strict
+                                </label>
+                            </div>
+                        </div>
                     </label>
                 </div>
             </div>
