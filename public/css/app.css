@@ -95,6 +95,10 @@ small,
 .form__text[disabled] {
     background-color: #efefef;
 }
+.form__text--multiline {
+    min-height: 45px;
+    resize: vertical;
+}
 .form__text--bold {
     font-weight: bold;
 }

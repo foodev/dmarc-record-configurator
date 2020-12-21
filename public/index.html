@@ -73,6 +73,7 @@
         const url = new URL(location);
 
         let dnsRecordParts = [];
+        let dnsRecordElement = form.querySelector('[name="dns_record"]');
 
         url.searchParams.forEach(function(value, key) {
             if (value.length > 0) {
@@ -80,7 +81,8 @@
             }
         });
 
-        form.querySelector('[name="dns_record"]').value = dnsRecordParts.join(';');
+        dnsRecordElement.value = dnsRecordParts.join(';');
+        dnsRecordElement.style.minHeight = (dnsRecordElement.scrollHeight + 2) + 'px';
     };
     </script>
 </head>
@@ -100,10 +102,9 @@
 
             <div class="grid__row">
                 <div class="grid__column">
-                    <input class="form__text form__text--centered form__text--bold form__text--collapsed"
+                    <textarea class="form__text form__text--multiline form__text--centered form__text--bold form__text--collapsed"
                         name="dns_record"
-                        type="text"
-                        disabled>
+                        disabled></textarea>
                 </div>
             </div>
 
