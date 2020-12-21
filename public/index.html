@@ -41,15 +41,35 @@
 
             history.pushState({}, '', url);
 
-            form.querySelector('[name="dns_record"]').value = buildDnsRecordString();
+            buildDnsRecordString(form);
         });
+
+        populateFormValues(form);
 
         form.dispatchEvent(new Event('submit', {
             cancelable: true
         }));
     });
 
-    var buildDnsRecordString = function() {
+    var populateFormValues = function(form) {
+        const url = new URL(location);
+
+        url.searchParams.forEach(function(value, key) {
+            let formElement = form.querySelector(`[name="${key}"]`);
+
+            if (
+                formElement.nodeName == 'INPUT'
+                && formElement.type == 'radio'
+                && formElement.value == value
+            ) {
+                formElement.checked = true;
+            } else {
+                formElement.value = value;
+            }
+        });
+    };
+
+    var buildDnsRecordString = function(form) {
         const url = new URL(location);
 
         let dnsRecordParts = [];
@@ -60,7 +80,7 @@
             }
         });
 
-        return dnsRecordParts.join(';');
+        form.querySelector('[name="dns_record"]').value = dnsRecordParts.join(';');
     };
     </script>
 </head>
