@@ -190,12 +190,16 @@ small,
     padding: 10px 20px;
 	flex: 0 0 100%;
 }
+.grid__row--condensed .grid__column {
+    padding: 10px;
+}
 .grid__column .grid__row {
+    margin-left: -20px;
+    margin-right: -20px;
+}
+.grid__column .grid__row--condensed {
     margin-left: -10px;
     margin-right: -10px;
-}
-.grid__column .grid__row .grid__column {
-    padding: 10px;
 }
 
 .grid__column--centered {
