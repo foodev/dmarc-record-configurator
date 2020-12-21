@@ -348,28 +348,23 @@
                             <summary class="form__details-opener">ℹ</summary>
 
                             <div class="form__details-content">
-                                Provides requested options for generation of failure reports. Report generators MAY choose to adhere to the requested options. This tag's content MUST be ignored if a "ruf" tag (below) is not also specified. The value of this tag is a colon-separated list of characters that indicate failure reporting options.
+                                Provides requested options for generation of failure reports. Report generators MAY choose to adhere to the requested options. This tag's content MUST be ignored if a "ruf" tag (below) is not also specified. The value of this tag is a colon-separated list of characters that indicate failure reporting options as follows:<br>
+                                <br>
+                                <b>0:</b> Generate a DMARC failure report if all underlying authentication mechanisms fail to produce an aligned "pass" result.<br>
+                                <br>
+                                <b>1:</b> Generate a DMARC failure report if any underlying authentication mechanism produced something other than an aligned "pass" result.<br>
+                                <br>
+                                <b>d:</b> Generate a DKIM failure report if the message had a signature that failed evaluation, regardless of its alignment. DKIM-specific reporting is described in [AFRF-DKIM].<br>
+                                <br>
+                                <b>s:</b> Generate an SPF failure report if the message failed SPF evaluation, regardless of its alignment. SPF-specific reporting is described in [AFRF-SPF].
                             </div>
                         </details>
 
-                        <select class="form__select"
+                        <input class="form__text"
                             name="fo"
-                            tabindex="6"
-                        >
-                            <option></option>
-                            <option value="0">
-                                Generate a DMARC failure report if all underlying authentication mechanisms fail to produce an aligned "pass" result.
-                            </option>
-                            <option value="1">
-                                Generate a DMARC failure report if any underlying authentication mechanism produced something other than an aligned "pass" result.
-                            </option>
-                            <option value="d">
-                                Generate a DKIM failure report if the message had a signature that failed evaluation, regardless of its alignment.
-                            </option>
-                            <option value="s">
-                                Generate an SPF failure report if the message failed SPF evaluation, regardless of its alignment.
-                            </option>
-                        </select>
+                            type="text"
+                            tabindex="10"
+                            placeholder="0">
                     </label>
                 </div>
             </div>
