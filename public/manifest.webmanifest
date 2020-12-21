@@ -3,6 +3,7 @@
     "dir": "ltr",
 
     "name": "DMARC Record Configurator",
+    "short_name": "DMARC Record Configurator",
     "description": "Configure DMARC DNS record.",
 
     "start_url": "/",
