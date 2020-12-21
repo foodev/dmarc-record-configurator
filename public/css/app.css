@@ -202,13 +202,53 @@ small,
     text-align: center;
 }
 
+.grid__column--1 {
+    flex-basis: calc(100% / 12 * 1);
+	max-width: calc(100% / 12 * 1);
+}
+.grid__column--2 {
+    flex-basis: calc(100% / 12 * 2);
+	max-width: calc(100% / 12 * 2);
+}
+.grid__column--3 {
+    flex-basis: calc(100% / 12 * 3);
+	max-width: calc(100% / 12 * 3);
+}
 .grid__column--4 {
     flex-basis: calc(100% / 12 * 4);
 	max-width: calc(100% / 12 * 4);
 }
+.grid__column--5 {
+    flex-basis: calc(100% / 12 * 5);
+	max-width: calc(100% / 12 * 5);
+}
 .grid__column--6 {
     flex-basis: calc(100% / 12 * 6);
 	max-width: calc(100% / 12 * 6);
+}
+.grid__column--7 {
+    flex-basis: calc(100% / 12 * 7);
+	max-width: calc(100% / 12 * 7);
+}
+.grid__column--8 {
+    flex-basis: calc(100% / 12 * 8);
+	max-width: calc(100% / 12 * 8);
+}
+.grid__column--9 {
+    flex-basis: calc(100% / 12 * 9);
+	max-width: calc(100% / 12 * 9);
+}
+.grid__column--10 {
+    flex-basis: calc(100% / 12 * 10);
+	max-width: calc(100% / 12 * 10);
+}
+.grid__column--11 {
+    flex-basis: calc(100% / 12 * 11);
+	max-width: calc(100% / 12 * 11);
+}
+.grid__column--12 {
+    flex-basis: calc(100% / 12 * 12);
+	max-width: calc(100% / 12 * 12);
 }
 @media (min-width: 800px) {
     .grid__column--medium-6 {
