@@ -176,7 +176,9 @@ small,
     color: #fff;
     background-color: #9b49a6;
 }
+.form__details-opener::-webkit-details-marker,
 .form__details-opener::marker {
+    display: none;
     content: '';
 }
 
