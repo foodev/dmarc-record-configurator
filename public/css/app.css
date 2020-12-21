@@ -261,6 +261,10 @@ small,
 .grid__column--centered {
     text-align: center;
 }
+.grid__column--large {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
 
 .grid__column--1 {
     flex-basis: calc(100% / 12 * 1);
