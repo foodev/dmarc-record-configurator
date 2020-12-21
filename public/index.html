@@ -32,14 +32,10 @@
         form.addEventListener('submit', function(event) {
             event.preventDefault();
 
-            const url = new URL(location);
             const formData = new FormData(form);
+            const urlSearchParams = new URLSearchParams(formData);
 
-            formData.forEach(function(value, name) {
-                url.searchParams.set(name, value);
-            });
-
-            history.pushState({}, '', url);
+            history.pushState({}, '', '?' + urlSearchParams.toString());
 
             buildDnsRecordString(form);
         });
@@ -59,7 +55,7 @@
 
             if (
                 formElement.nodeName == 'INPUT'
-                && formElement.type == 'radio'
+                && (formElement.type == 'radio' || formElement.type == 'checkbox')
                 && formElement.value == value
             ) {
                 formElement.checked = true;
@@ -72,16 +68,28 @@
     var buildDnsRecordString = function(form) {
         const url = new URL(location);
 
-        let dnsRecordParts = [];
+        let dnsRecordParts = {};
         let dnsRecordElement = form.querySelector('[name="dns_record"]');
 
         url.searchParams.forEach(function(value, key) {
             if (value.length > 0) {
-                dnsRecordParts.push(`${key}=${decodeURIComponent(value)}`);
+                if (key.substr(-2) == '[]') {
+                    key = key.substr(0, key.length - 2);
+
+                    if (typeof dnsRecordParts[key] === 'undefined') {
+                        dnsRecordParts[key] = [];
+                    }
+
+                    dnsRecordParts[key].push(decodeURIComponent(value));
+                } else {
+                    dnsRecordParts[key] = decodeURIComponent(value);
+                }
             }
         });
 
-        dnsRecordElement.value = dnsRecordParts.join('; ');
+        dnsRecordElement.value = Object.keys(dnsRecordParts).map(function(key) {
+            return `${key}=${dnsRecordParts[key]}`
+        }).join('; ');
         dnsRecordElement.style.minHeight = (dnsRecordElement.scrollHeight + 2) + 'px';
     };
     </script>
@@ -152,7 +160,7 @@
             <div class="grid__row">
                 <!-- p -->
                 <div class="grid__column grid__column--medium-6">
-                    <label class="form__label"
+                    <div class="form__label"
                         title="p"
                     >
                         Policy
@@ -217,12 +225,12 @@
                                 </label>
                             </div>
                         </div>
-                    </label>
+                    </div>
                 </div>
 
                 <!-- sp -->
                 <div class="grid__column grid__column--medium-6">
-                    <label class="form__label"
+                    <div class="form__label"
                         title="sp"
                     >
                         Policy for subdomains
@@ -280,7 +288,7 @@
                                 </label>
                             </div>
                         </div>
-                    </label>
+                    </div>
                 </div>
             </div>
 
@@ -340,7 +348,7 @@
 
                 <!-- fo -->
                 <div class="grid__column grid__column--medium-6">
-                    <label class="form__label"
+                    <div class="form__label"
                         title="fo"
                     >
                         Failure reporting options
@@ -349,7 +357,7 @@
                             <summary class="form__details-opener">ℹ</summary>
 
                             <div class="form__details-content">
-                                Provides requested options for generation of failure reports. Report generators MAY choose to adhere to the requested options. This tag's content MUST be ignored if a "ruf" tag (below) is not also specified. The value of this tag is a colon-separated list of characters that indicate failure reporting options as follows:<br>
+                                Provides requested options for generation of failure reports. Report generators MAY choose to adhere to the requested options. This tag's content MUST be ignored if a "ruf" tag is not also specified. The value of this tag is a colon-separated list of characters that indicate failure reporting options as follows:<br>
                                 <br>
                                 <b>0:</b> Generate a DMARC failure report if all underlying authentication mechanisms fail to produce an aligned "pass" result.<br>
                                 <br>
@@ -361,12 +369,64 @@
                             </div>
                         </details>
 
-                        <input class="form__text"
-                            name="fo"
-                            type="text"
-                            tabindex="10"
-                            placeholder="0">
-                    </label>
+                        <div class="grid__row grid__row--condensed">
+                            <div class="grid__column grid__column--3">
+                                <input id="fo-0"
+                                    hidden
+                                    type="checkbox"
+                                    name="fo[]"
+                                    value="0">
+                                <label class="button button--collapsed"
+                                    for="fo-0"
+                                    tabindex="10"
+                                >
+                                    0
+                                </label>
+                            </div>
+
+                            <div class="grid__column grid__column--3">
+                                <input id="fo-1"
+                                    hidden
+                                    type="checkbox"
+                                    name="fo[]"
+                                    value="1">
+                                <label class="button button--collapsed"
+                                    for="fo-1"
+                                    tabindex="11"
+                                >
+                                    1
+                                </label>
+                            </div>
+
+                            <div class="grid__column grid__column--3">
+                                <input id="fo-d"
+                                    hidden
+                                    type="checkbox"
+                                    name="fo[]"
+                                    value="d">
+                                <label class="button button--collapsed"
+                                    for="fo-d"
+                                    tabindex="12"
+                                >
+                                    d
+                                </label>
+                            </div>
+
+                            <div class="grid__column grid__column--3">
+                                <input id="fo-s"
+                                    hidden
+                                    type="checkbox"
+                                    name="fo[]"
+                                    value="s">
+                                <label class="button button--collapsed"
+                                    for="fo-s"
+                                    tabindex="13"
+                                >
+                                    s
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -423,7 +483,7 @@
             <div class="grid__row">
                 <!-- adkim -->
                 <div class="grid__column grid__column--medium-6">
-                    <label class="form__label"
+                    <div class="form__label"
                         title="adkim"
                     >
                         Alignment mode for DKIM
@@ -465,12 +525,12 @@
                                 </label>
                             </div>
                         </div>
-                    </label>
+                    </div>
                 </div>
 
                 <!-- aspf -->
                 <div class="grid__column grid__column--medium-6">
-                    <label class="form__label"
+                    <div class="form__label"
                         title="aspf"
                     >
                         Alignment mode for SPF
@@ -512,7 +572,7 @@
                                 </label>
                             </div>
                         </div>
-                    </label>
+                    </div>
                 </div>
             </div>
         </form>

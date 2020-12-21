@@ -74,6 +74,7 @@ small,
 /* Form elements */
 .form__label {
     position: relative;
+    display: inline;
     color: #123;
     font: 14px 'Open Sans', sans-serif;
 }
@@ -170,7 +171,6 @@ small,
     color: #693271;
     border-color: #693271;
 }
-.button:focus,
 [hidden]:checked + .button {
     color: #fff;
     border-color: #693271;
