@@ -111,7 +111,7 @@
             }
         });
 
-        dnsRecordElement.value = Object.keys(dnsRecordParts).map(function(key) {
+        dnsRecordElement.innerHTML = Object.keys(dnsRecordParts).map(function(key) {
             return `${key}=${dnsRecordParts[key]}`
         }).join('; ');
         dnsRecordElement.style.minHeight = (dnsRecordElement.scrollHeight + 2) + 'px';
@@ -133,10 +133,9 @@
             </div>
 
             <div class="grid__row">
-                <div class="grid__column">
-                    <textarea class="form__text form__text--multiline form__text--centered form__text--bold form__text--collapsed form__text--noresize"
-                        name="dns_record"
-                        disabled></textarea>
+                <div class="grid__column grid__column--centered">
+                    <strong class="text text--large"
+                        name="dns_record"></strong>
                 </div>
             </div>
 

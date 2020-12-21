@@ -90,11 +90,15 @@ footer {
 /* Texts */
 p,
 .text {
-    font: 14px var(--font-sans-serif), sans-serif;
+    font-size: 14px;
+    font-family: var(--font-sans-serif), sans-serif;
 }
 small,
 .text--small {
     font-size: 12px;
+}
+.text--large {
+    font-size: 30px;
 }
 
 /* Links */
