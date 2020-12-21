@@ -370,32 +370,6 @@
             </div>
 
             <div class="grid__row">
-                <!-- rf -->
-                <div class="grid__column">
-                    <label class="form__label"
-                        title="tf"
-                    >
-                        Format for message-specific failure reports
-
-                        <details class="form__details">
-                            <summary class="form__details-opener">ℹ</summary>
-
-                            <div class="form__details-content">
-                                Colon-separated plain-text list of values. The value of this tag is a list of one or more report formats as requested by the Domain Owner to be used when a message fails both [SPF] and [DKIM] tests to report details of the individual failure. The values MUST be present in the registry of reporting formats defined in Section 11; a Mail Receiver observing a different value SHOULD ignore it or MAY ignore the entire DMARC record. For this version, only "afrf" (the auth-failure report type defined in [AFRF]) is presently supported.
-                            </div>
-                        </details>
-
-                        <input class="form__text"
-                            name="rf"
-                            tabindex="11"
-                            type="text"
-                            value="afrf"
-                            disabled>
-                    </label>
-                </div>
-            </div>
-
-            <div class="grid__row">
                 <!-- rua -->
                 <div class="grid__column grid__column--6">
                     <label class="form__label"
