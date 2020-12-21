@@ -21,6 +21,7 @@ main {
     }
 }
 footer {
+    box-sizing: border-box;
     margin: 0 auto;
     padding: 20px;
 }
