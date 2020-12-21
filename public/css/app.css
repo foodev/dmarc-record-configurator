@@ -31,13 +31,30 @@
     font-display: swap;
 }
 
+:root {
+    --font-sans-serif: 'Open Sans';
+    --font-serif: 'Bitter';
+
+    --color-theme: #9b49a6;
+    --color-theme-lighter: #f0e3f2;
+    --color-theme-darker: #693271;
+
+    --color-white: #fff;
+
+    --color-black: #123;
+
+    --color-grey: #fafafa;
+    --color-grey-lighter: #efefef;
+    --color-grey-darker: #ccc;
+}
+
 * {
     margin: 0;
     padding: 0;
 }
 
 body {
-    background-color: #fafafa;
+    background-color: var(--color-grey);
 }
 header {
     padding: 20px;
@@ -64,7 +81,7 @@ footer {
 
 /* Headings */
 .heading--level-1 {
-    font: 400 30px 'Bitter', serif;
+    font: 400 30px var(--font-serif), serif;
 }
 .heading--centered {
     text-align: center;
@@ -73,7 +90,7 @@ footer {
 /* Texts */
 p,
 .text {
-    font: 14px 'Open Sans', sans-serif;
+    font: 14px var(--font-sans-serif), sans-serif;
 }
 small,
 .text--small {
@@ -82,20 +99,20 @@ small,
 
 /* Links */
 .link {
-    color: #9b49a6;
+    color: var(--color-theme);
     text-decoration: none;
     transition: color 0.3s ease;
 }
 .link:hover {
-    color: #693271;
+    color: var(--color-theme-darker)
 }
 
 /* Rules */
 .horizontal-rule {
 	height: 1px;
 	border-width: 0;
-	color: #efefef;
-	background: #efefef;
+	color: var(--color-grey-lighter);
+	background: var(--color-grey-lighter);
 }
 .horizontal-rule--narrow {
     width: 60%;
@@ -106,8 +123,8 @@ small,
 .form__label {
     position: relative;
     display: inline;
-    color: #123;
-    font: 14px 'Open Sans', sans-serif;
+    color: var(--color-black);
+    font: 14px var(--font-sans-serif), sans-serif;
 }
 
 .form__text {
@@ -117,15 +134,15 @@ small,
     height: 45px;
     margin-top: 10px;
     padding: 10px 15px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--color-grey-darker);
     border-radius: 4px;
-    background-color: #fff;
-    color: #123;
-    font: 14px 'Open Sans', sans-serif;
+    background-color: var(--color-white);
+    color: var(--color-black);
+    font: 14px var(--font-sans-serif), sans-serif;
 }
 .form__text[readonly],
 .form__text[disabled] {
-    background-color: #efefef;
+    background-color: var(--color-grey-lighter);
 }
 .form__text--multiline {
     min-height: 45px;
@@ -151,11 +168,11 @@ small,
     height: 45px;
     margin-top: 10px;
     padding: 10px 15px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--color-grey-darker);
     border-radius: 4px;
-    background-color: #fff;
-    color: #123;
-    font: 14px 'Open Sans', sans-serif;
+    background-color: var(--color-white);
+    color: var(--color-black);
+    font: 14px var(--font-sans-serif), sans-serif;
 }
 
 .form__details-content {
@@ -163,8 +180,8 @@ small,
     margin-top: 10px;
     padding: 15px;
     border-radius: 4px;
-    color: #fff;
-    background-color: #9b49a6;
+    color: var(--color-white);
+    background-color: var(--color-theme);
 }
 .form__details-opener {
     cursor: pointer;
@@ -176,8 +193,8 @@ small,
     font-size: 12px;
     text-align: center;
     border-radius: 50%;
-    color: #fff;
-    background-color: #9b49a6;
+    color: var(--color-white);
+    background-color: var(--color-theme);
 }
 .form__details-opener::-webkit-details-marker,
 .form__details-opener::marker {
@@ -194,23 +211,22 @@ small,
     margin-top: 10px;
     padding: 10px 15px;
     text-align: center;
-    font: 700 14px/25px 'Open Sans', sans-serif;
+    font: 700 14px/25px var(--font-sans-serif), sans-serif;
     border-radius: 4px;
-    border: 1px solid #ccc;
-    background-color: #fff;
+    border: 1px solid var(--color-grey-darker);
+    background-color: var(--color-white);
     transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
 }
 .button--collapsed {
     margin: 0
 }
-.button:hover {
-    color: #693271;
-    border-color: #693271;
+.button:hover,
+[hidden]:checked + .button {
+    color: var(--color-theme-darker);
+    border-color: var(--color-theme-darker);
 }
 [hidden]:checked + .button {
-    color: #fff;
-    border-color: #693271;
-    background-color: #ba79c3;
+    background-color: var(--color-theme-lighter);
 }
 
 /* Grid */
