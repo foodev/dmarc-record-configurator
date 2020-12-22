@@ -103,7 +103,7 @@
         const url = new URL(location);
 
         let dnsRecordParts = {};
-        let dnsRecordElement = form.querySelector('[name="dns_record"]');
+        let dnsRecordElement = form.querySelector('.dns-record');
 
         url.searchParams.forEach(function(value, key) {
             if (value.length > 0) {
@@ -144,8 +144,7 @@
 
             <div class="grid__row">
                 <div class="grid__column grid__column--centered grid__column--large">
-                    <strong class="text text--large"
-                        name="dns_record"></strong>
+                    <strong class="dns-record"></strong>
 
                     <noscript>
                         <p>Please enable JavaScript to see the generated DNS record.</p>

@@ -322,3 +322,13 @@ small,
         max-width: calc(100% / 12 * 6);
     }
 }
+
+/* DNS record box */
+.dns-record {
+    display: block;
+    box-sizing: border-box;
+    padding: 20px;
+    font-size: 14px;
+    font-family: var(--font-sans-serif), sans-serif;
+    background-color: var(--color-white);
+}
