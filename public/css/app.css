@@ -330,5 +330,6 @@ small,
     padding: 20px;
     font-size: 14px;
     font-family: var(--font-sans-serif), sans-serif;
+    border-radius: 4px;
     background-color: var(--color-white);
 }
