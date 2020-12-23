@@ -124,7 +124,6 @@
         dnsRecordElement.innerHTML = Object.keys(dnsRecordParts).map(function(key) {
             return `${key}=${dnsRecordParts[key]}`
         }).join('; ');
-        dnsRecordElement.style.minHeight = (dnsRecordElement.scrollHeight + 2) + 'px';
     };
     </script>
 </head>
