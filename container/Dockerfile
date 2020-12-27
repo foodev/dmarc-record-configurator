@@ -1,8 +1,18 @@
-ARG BASE_IMAGE=debian
+ARG ARCHITECTURE
 
-FROM ${BASE_IMAGE}:buster
+FROM ${ARCHITECTURE}node:buster AS build/css
 
-ARG BASE_IMAGE=debian
+COPY public/css /usr/src/
+
+RUN npm install -g csso-cli \
+    && \
+    csso --source-map file --input /usr/src/app.css --output /usr/src/app.css
+
+ARG ARCHITECTURE
+
+FROM ${ARCHITECTURE}debian:buster AS build/webserver
+
+ARG ARCHITECTURE
 
 #
 # Install dependencies
@@ -78,7 +88,7 @@ RUN mkdir --parents \
 #
 # Copy all necessary libraries
 #
-RUN if [ "$BASE_IMAGE" = "arm32v7/debian" ]; then \
+RUN if [ "$ARCHITECTURE" = "arm32v7" ]; then \
         ld_linux="/lib/ld-linux-armhf.so.3"; \
         lib_root="/lib/arm-linux-gnueabihf"; \
     else \
@@ -127,13 +137,14 @@ COPY container/etc /build/etc
 # Copy source code
 #
 COPY public /build/usr/src/app/
+COPY --from=build/css /usr/src/ /build/usr/src/app/css/
 
 #
 # Everything below this line will be the actual content of the image
 #
 FROM scratch
 
-COPY --from=0 /build /
+COPY --from=build/webserver /build /
 
 WORKDIR /usr/src/app
 
