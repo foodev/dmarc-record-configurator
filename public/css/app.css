@@ -110,6 +110,15 @@ small,
 .link:hover {
     color: var(--color-theme-darker)
 }
+.link--inverted {
+    color: var(--color-white);
+    text-decoration: underline;
+    transition: text-decoration 0.3s ease;
+}
+.link--inverted:hover {
+    color: var(--color-white);
+    text-decoration: none;
+}
 
 /* Rules */
 .horizontal-rule {

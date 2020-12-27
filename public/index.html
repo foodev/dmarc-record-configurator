@@ -512,7 +512,13 @@
                             <summary class="form__details-opener">ℹ</summary>
 
                             <div class="form__details-content">
-                                Indicates whether strict or relaxed DKIM Identifier Alignment mode is required by the Domain Owner.
+                                Indicates whether strict or relaxed DKIM Identifier Alignment mode is required by the Domain Owner.<br>
+                                <br>
+                                <b>relaxed:</b> The domains (but not necessarily the subdomains) of both the [DKIM]-authenticated signing domain (taken from the value of the "d=" tag in the signature) and that of the RFC5322.From domain must be equal if the identifiers are to be considered aligned.<br>
+                                <br>
+                                <b>strict:</b> Only an exact match between both of the Fully Qualified Domain Names (FQDNs) is considered to produce Identifier Alignment.<br>
+                                <br>
+                                For more information see <a class="link link--inverted" target="_blank" rel="external noopener" href="https://tools.ietf.org/html/rfc7489#section-3.1.1">RFC 7489 Section 3.1.1</a>.
                             </div>
                         </details>
 
@@ -557,7 +563,13 @@
                             <summary class="form__details-opener">ℹ</summary>
 
                             <div class="form__details-content">
-                                Indicates whether strict or relaxed SPF Identifier Alignment mode is required by the Domain Owner.
+                                Indicates whether strict or relaxed SPF Identifier Alignment mode is required by the Domain Owner.<br>
+                                <br>
+                                <b>relaxed:</b> The [SPF]-authenticated domain and RFC5322.From domain must have the same domain (but not necessarily the subdomain).<br>
+                                <br>
+                                <b>strict:</b> Only an exact DNS domain match is considered to produce Identifier Alignment.<br>
+                                <br>
+                                For more information see <a class="link link--inverted" target="_blank" rel="external noopener" href="https://tools.ietf.org/html/rfc7489#section-3.1.2">RFC 7489 Section 3.1.2</a>.
                             </div>
                         </details>
 
