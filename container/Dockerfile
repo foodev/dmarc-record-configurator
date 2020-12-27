@@ -88,7 +88,7 @@ RUN mkdir --parents \
 #
 # Copy all necessary libraries
 #
-RUN if [ "$ARCHITECTURE" = "arm32v7" ]; then \
+RUN if [ "$ARCHITECTURE" = "arm32v7/" ]; then \
         ld_linux="/lib/ld-linux-armhf.so.3"; \
         lib_root="/lib/arm-linux-gnueabihf"; \
     else \
